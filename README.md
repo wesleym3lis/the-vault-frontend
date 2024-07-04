@@ -1,4 +1,4 @@
-# the-vault-frontend
+# the-vault-frontend.
 
 ## Project setup
 ```

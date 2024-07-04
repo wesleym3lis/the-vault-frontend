@@ -60,6 +60,7 @@
         } catch (error) {
           alert('Network error: ' + error.message);
         }
+        this.$router.push('/ListPage');
       },
       async fetchAllRecords() {
       try {
