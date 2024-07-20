@@ -17,6 +17,7 @@
         <button type="submit">Submit</button>
       </form>
       <button @click="fetchAllRecords">List</button>
+      <button @click="removeRecord">delete</button>
     <div v-if="records.length > 0">
       <h2>All Records</h2>
       <ul>
@@ -29,13 +30,16 @@
   </template>
   
   <script>
+import router from '@/router/config';
+import axios from 'axios';
+
   export default {
     data() {
       return {
         formData: {
           service: '',
           username: '',
-          password: ''
+          password: '',
         },
         records: [],
         errorMessage: ''
@@ -60,7 +64,7 @@
         } catch (error) {
           alert('Network error: ' + error.message);
         }
-        this.$router.push('/ListPage');
+        router.push('/ListPage');
       },
       async fetchAllRecords() {
       try {
@@ -76,8 +80,26 @@
       } catch (error) {
         this.errorMessage = 'Network error: ' + error.message;
         this.records = [];
+        }
+      },
+      async removeRecord(){
+        try{
+          const response = await axios.delete('http://localhost:3000/remove', {
+            data: { data: this.formData.service }
+          });
+          const result = await response.json();
+        if (response.ok) {
+          this.records = result;
+          this.errorMessage = '';
+        } else {
+          this.errorMessage = result.error;
+          this.records = [];
+        }          
+        }catch(error){
+          this.errorMessage = 'Network error: ' + error.message;
+          this.records = [];
+        }
       }
-    }
     }
   };
   </script>
