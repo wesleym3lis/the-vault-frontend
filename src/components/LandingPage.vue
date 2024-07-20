@@ -96,7 +96,7 @@ import axios from 'axios';
           this.records = [];
         }          
         }catch(error){
-          this.errorMessage = 'Network error: ' + error.message;
+          this.errorMessage = 'Network errorrr: ' + error.message;
           this.records = [];
         }
       }
